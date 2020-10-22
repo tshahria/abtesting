@@ -35,7 +35,10 @@ def get_avg(nums):
     :return: average of list
     '''
     #TODO: fill me in!
-    return sum(nums)/len(nums)
+    total = 0
+    for num in nums:
+        total += num
+    return total/len(nums)
 
 def get_stdev(nums):
     '''
