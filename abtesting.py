@@ -48,7 +48,7 @@ def get_stdev(nums):
     res = 0
     for num in nums:
         res += (num-avg)**2
-    res /= len(nums-1)
+    res /= (len(nums)-1)
     return res ** (1/2)
 
 def get_standard_error(a, b):
@@ -87,7 +87,10 @@ def get_t_score(a, b):
     :return: number representing the t-score given lists a and b (see studio 6 guide for this equation!)
     '''
     #TODO: fill me in!
-    return ((get_avg(a)-get_avg(b))/get_standard_error(a,b))
+    t_val = ((get_avg(a)-get_avg(b))/get_standard_error(a,b))
+    if t_val < 0:
+        return t_val
+    return -t_val
 
 def perform_2_sample_t_test(a, b):
     '''
@@ -99,7 +102,7 @@ def perform_2_sample_t_test(a, b):
     HINT: the t_dist.cdf() function might come in handy!
     '''
     #TODO: fill me in!
-    t_score = abs(get_t_score(a,b))
+    t_score = get_t_score(a,b)
     df = get_2_sample_df(a,b)
     return t_dist.cdf(t_score, df)
 
@@ -179,8 +182,8 @@ def perform_chi2_homogeneity_test(observed_grid):
     '''
     #TODO: fill me in!
     df = df_chi2(observed_grid)
-    chi2 = chi2_value(observed_grid)
-    return chi2.cdf(chi2, df)
+    chi_2 = chi2_value(observed_grid)
+    return 1 - chi2.cdf(chi_2, df)
 
 # These commented out lines are for testing your main functions. 
 # Please uncomment them when finished with your implementation and confirm you get the same values :)
@@ -193,7 +196,6 @@ def data_to_num_list(s):
     '''
   return list(map(float, s.split()))
 
-"""
 # t_test 1:
 a_t1_list = data_to_num_list(a1) 
 b_t1_list = data_to_num_list(b1)
@@ -212,9 +214,8 @@ a_t3_list = data_to_num_list(a3)
 b_t3_list = data_to_num_list(b3)
 print(get_t_score(a_t3_list, b_t3_list)) # this should be -2.88969
 print(perform_2_sample_t_test(a_t3_list, b_t3_list)) # this should be .005091
-"""
 
-"""
+
 # chi2_test 1:
 a_c1_list = data_to_num_list(a_count_1) 
 b_c1_list = data_to_num_list(b_count_1)
@@ -236,6 +237,6 @@ b_c3_list = data_to_num_list(b_count_3)
 c3_observed_grid = [a_c3_list, b_c3_list]
 print(chi2_value(c3_observed_grid)) # this should be .3119402
 print(perform_chi2_homogeneity_test(c3_observed_grid)) # this should be .57649202
-"""
+
 
 
