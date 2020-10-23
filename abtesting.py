@@ -112,7 +112,10 @@ def perform_2_sample_t_test(a, b):
 
 # [OPTIONAL] Some helper functions that might be helpful in get_expected_grid().
 def row_sum(observed_grid, ele_row):
-    return sum(observed_grid[ele_row])
+    res = 0
+    for item in observed_grid[ele_row]:
+        res += item
+    return res
 
 def col_sum(observed_grid, ele_col):
     res = 0
